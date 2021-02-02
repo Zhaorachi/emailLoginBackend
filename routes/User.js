@@ -25,7 +25,7 @@ const transporter = nodemailer.createTransport({
 
 const router = express.Router();
 
-router.get('/', checkIfLoggedIn, (req, res, next) => {
+router.get('/', (req, res, next) => {
 	EmailUser.find()
 		.then(users => {
 			return res.status(200).json(users);
