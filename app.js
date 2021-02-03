@@ -48,11 +48,11 @@ const stripe = Stripe(process.env.STRIPE);
 app.use(express.json());
 
 // app.use(cors({ origin: true }));
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 /// COMO VER SI HAS ACTUALIZDO EL BACKEND
 /// COMO VER SI HAS ACTUALIZDO EL BACKEND
@@ -80,11 +80,10 @@ var corsOptions = {
 		} else {
 			callback(new Error('Not allowed by CORS'));
 		}
-	},
+	}
 };
 
 app.use(cors(corsOptions));
-
 app.options('/create-checkout-session', cors(corsOptions));
 app.post('/create-checkout-session', cors(corsOptions), async (req, res) => {
 	const session = await stripe.checkout.sessions.create({
