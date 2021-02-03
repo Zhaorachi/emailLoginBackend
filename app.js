@@ -67,6 +67,7 @@ var whitelist = [
 	undefined,
 	'localhost',
 	'http://localhost:3000',
+    'https://master.d3t17cckm1h0gu.amplifyapp.com',
 	'https://coinsenders.com',
 	'https://www.coinsenders.com',
 	'https://coinsenders.com/',
@@ -81,6 +82,8 @@ var corsOptions = {
 		}
 	},
 };
+
+app.use(cors(corsOptions));
 
 app.options('/create-checkout-session', cors(corsOptions));
 app.post('/create-checkout-session', cors(corsOptions), async (req, res) => {
