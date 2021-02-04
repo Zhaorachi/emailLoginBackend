@@ -105,6 +105,8 @@ router.post('/login', (req, res, next) => {
                         });
                         return res.status(200).send({success: true, message: "Email sent successfully."});
                     }
+                }).catch(err => {
+                    return res.status(500).send({success: false, message: "Something went wrong."});
                 });
             }else {
                 return res.status(204).send({success: false, message: "The email doesn't exist."});
