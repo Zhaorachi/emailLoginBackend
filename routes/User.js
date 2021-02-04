@@ -95,18 +95,19 @@ router.post('/login', (req, res, next) => {
                     html: `To log in, please click <a href="${loginUrl}">here</a>.
                             <br>Thank you!`
                 };
-                transporter.sendMail(mailOptions, function(error, info){
-                    if(error) {
+                transporter.sendMail(mailOptions, function(error, info) {
+                    if (error) {
                         console.log(error);
-                        return res.status(202).send({success: false, message: 'Something went wrong sending a login email to you.'});
-                    }else {
-                        EmailUser.updateOne({_id: doc._id}, {$set: {token: securityCode}}, {new: true}, function(err, task) {
-                            if(err) return res.status(202).send({success: false, message: "Something went wrong."});
+                        return res.status(202).send({
+                            success: false,
+                            message: 'Something went wrong sending a login email to you.'
+                        });
+                    } else {
+                        EmailUser.updateOne({_id: doc._id}, {$set: {token: securityCode}}, {new: true}, function (err, task) {
+                            if (err) return res.status(202).send({success: false, message: "Something went wrong."});
                         });
                         return res.status(200).send({success: true, message: "Email sent successfully."});
                     }
-                }).catch(err => {
-                    return res.status(202).send({success: false, message: "Something went wrong."});
                 });
             }else {
                 return res.status(201).send({success: false, message: "The email doesn't exist."});
